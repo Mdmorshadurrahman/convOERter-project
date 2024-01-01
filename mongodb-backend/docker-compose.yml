@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  oer-converter-feedback:
+    build: .
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    depends_on:
+      - oer-converter-mongo
+    environment:
+      - MONGO_BASE=oer-converter-mongo:27017
+
+  oer-converter-mongo:
+    image: "mongo"
+    container_name: oer-converter-mongo
+    restart: unless-stopped
+    volumes:
+      - /srv/oer-mongo:/data/db
